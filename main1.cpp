@@ -16,32 +16,34 @@ using namespace std;
 
 
 void execute(char *arglist[]){
-    int pid,exitstatus;
     
-    pid=fork();// create child process
+    int pid, exitstatus;
+    // create child process
+    pid = fork();
     switch(pid){
         case -1:
             perror("fork failed");
             exit(1);
         case 0:
-            execvp(arglist[0],arglist);//change child process
+            //change child process
+            execvp(arglist[0], arglist);
             perror("execvp failed");
             exit(1);
         default:
-            while(wait(&exitstatus)!=pid);//parent process wait
-            //printf("child exited with status %d,%d\n",exitstatus>>8,exitstatus&0377);
+            //parent process wait
+            while(wait(&exitstatus) != pid);
     }
 }
 
 class Commands{
     
-    char* connectors ;
+    char * connectors ;
     char * command[20];
     int count;
 public:
-    char* content;
+    char * content;
     
-    Commands(char* str)
+    Commands(char * str)
     {
         //content
         content = str;
@@ -50,17 +52,16 @@ public:
         string c = ";&&||";
         int len1 = (int) c.length();
         connectors = new char[len1+1];
-        strcpy(connectors,c.c_str());
+        strcpy(connectors, c.c_str());
         
-//        cout<<content<<endl;
-        //parse commands
+
         
     }
-    
+    //parse commands
     void parse(){
         count = 0;
         char * p;
-        p = strtok(content,connectors);
+        p = strtok(content, connectors);
         
         while(p!= NULL)
         {
@@ -68,30 +69,23 @@ public:
             count++;
             p = strtok(NULL, connectors);
         }
-//        cout<<count<<endl;
-//        for(int i=0;i<count;i++)
-//        {
-//            cout<<command[i]<<endl;
-//        }
     }
     
     void exec(){
-        
-        for(int i = 0;i<=count;i++)
+        for (int i = 0;i<=count;i++)
         {
-            char *arglist[20];
+            char * arglist[20];
             char * p;
             p = strtok(command[i], " ");
             int num = 0;
-            while(p!= NULL)
+            while (p!= NULL)
             {
                 arglist[num] = p;
                 num++;
                 p = strtok(NULL, " ");
             }
             arglist[num] = NULL;
-//            cout<<*arglist<<endl;
-             execute(arglist);
+            execute(arglist);
         }
         
         
@@ -100,20 +94,20 @@ public:
 
 
 class Command_lines{
-    char* content;
-    char* comment_connector;
+    char * content;
+    char * comment_connector;
 public:
     Command_lines(string str){
         //content
-        int len = (int)str.length();
-        content =new char[len+1];
-        strcpy(content,str.c_str());
+        int len = (int) str.length();
+        content = new char[len+1];
+        strcpy(content, str.c_str());
         
         //comment_connector
         string c1 = "#";
         int len2 = (int) c1.length();
         comment_connector = new char[len2+1];
-        strcpy(comment_connector,c1.c_str());
+        strcpy(comment_connector, c1.c_str());
     };
     Commands parseCommands(){
         char * p;
@@ -128,10 +122,10 @@ public:
 int main(int argc, const char * argv[]) {
     
     string c;
-    while(1){
-        cout<<"$";
+    while (1){
+        cout << "$";
         getline(cin,c);
-        if(c=="exit")
+        if(c == "exit")
             break;
         Command_lines cl(c);
         Commands cs = cl.parseCommands();
