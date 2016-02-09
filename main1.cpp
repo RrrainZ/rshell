@@ -15,9 +15,9 @@
 using namespace std;
 
 
-void execute(char *arglist[]){
+int execute(char *arglist[]){
     
-    int pid, exitstatus;
+    int pid, exitstatus,flag = 1;
     // create child process
     pid = fork();
     switch(pid){
@@ -26,19 +26,21 @@ void execute(char *arglist[]){
             exit(1);
         case 0:
             //change child process
-            execvp(arglist[0], arglist);
+            flag = execvp(arglist[0], arglist);
             perror("execvp failed");
             exit(1);
         default:
             //parent process wait
             while(wait(&exitstatus) != pid);
     }
+    return flag;
 }
 
 class Commands{
     
     char * connectors ;
     char * command[20];
+    char con[100];
     int count;
 public:
     char * content;
@@ -53,18 +55,48 @@ public:
         int len1 = (int) c.length();
         connectors = new char[len1+1];
         strcpy(connectors, c.c_str());
-        
-
-        
     }
+    
+    int getlen(char * result)
+    {
+        int i = 0;
+        while (result[i]!='\0'){
+            i++;
+        }
+        return i;
+    }
+    
+    string subs(string str,int reduce,char type)
+    {
+        string p = str;
+        if(type == ';')
+        {
+            p = str.substr(reduce+1);
+        }
+        else if(type == '&' || type == '|')
+        {
+            p = str.substr(reduce+2);
+        }
+        return p;
+    }
+    
     //parse commands
     void parse(){
         count = 0;
         char * p;
+        string tmpcontent = content;
         p = strtok(content, connectors);
+        int p_len;
+        char type;
         
         while(p!= NULL)
         {
+            
+            p_len = getlen(p);
+            type = tmpcontent[p_len];
+            con[count] = type;
+            cout<<con[count]<<endl;
+            tmpcontent = subs(tmpcontent,p_len,type);
             command[count] = p;
             count++;
             p = strtok(NULL, connectors);
@@ -72,6 +104,7 @@ public:
     }
     
     void exec(){
+        int flag;
         for (int i = 0;i<=count;i++)
         {
             char * arglist[20];
@@ -85,7 +118,19 @@ public:
                 p = strtok(NULL, " ");
             }
             arglist[num] = NULL;
-            execute(arglist);
+            if(i>0){
+                if(con[i-1] == '&')
+                {
+                    if(flag == -1)
+                        continue;
+                }
+                if(con[i-1] == '|')
+                {
+                    if(flag != -1)
+                        continue;
+                }
+            }
+            flag = execute(arglist);
         }
         
         
