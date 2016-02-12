@@ -95,7 +95,7 @@ public:
             p_len = getlen(p);
             type = tmpcontent[p_len];
             con[count] = type;
-            cout<<con[count]<<endl;
+            //cout<<con[count]<<endl;
             tmpcontent = subs(tmpcontent,p_len,type);
             command[count] = p;
             count++;
