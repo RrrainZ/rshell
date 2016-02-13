@@ -14,7 +14,7 @@ one fails. For example:
   $ ls -a
   $ echo hello
   $ mkdir test
-    is equivalent to:
+is equivalent to:
   $ ls -a; echo hello; mkdir test
 There should be no limit to the number of commands that can be chained together using these
 operators, and your program must be able to handle any combination of operators. For
