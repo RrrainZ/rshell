@@ -1,4 +1,5 @@
 Synopsis:
+
 This program is building a command shell called rshell.
 1. Print a command prompt (e.g. $)
 2. Read in a command on one line. Commands will have the form:
@@ -23,6 +24,7 @@ example, you should be able to handle the command:
 4. Anything that appears after a # character should be considered a comment. 
 
 Running the program:
+
   $ git clone https://github.com/yourusername/rshell.git
   $ cd rshell
   $ git checkout hw1
@@ -30,11 +32,14 @@ Running the program:
   $ bin/rshell
   
 Tests for the program:
+
 The .sh files have been chmod when you makefile. So the only thing you need to do is running the .sh files in Directory tests.(For example: tests/exit.sh or ./exit.sh)
 
 Limits:
+
 If any blank space appears between commands and connectors, the program will crush.
 
 Contributors:
+
 Zhenyu Hu
 rrrrain.z@gmail.com
