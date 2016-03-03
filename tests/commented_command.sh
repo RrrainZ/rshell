@@ -1,6 +1,8 @@
 #!/bin/sh
-echo "ls -a;echo hello||echo world&&git status#ls"
+echo "(test -e ./test/Zhenyu_625503.txt && echo B) || (echo C && echo D)# echo "path exists""
+echo "[ -e ./test/Zhenyu_625503.txt ] # echo “path exists”"
 ./rshell << EOF
-ls -a;echo hello||echo world&&git status#ls
+(test -e ./test/Zhenyu_625503.txt && echo B) || (echo C && echo D)# echo "path exists"
+[ -e ./test/Zhenyu_625503.txt ] # echo “path exists”
 exit
 EOF

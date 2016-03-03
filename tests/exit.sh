@@ -1,7 +1,7 @@
 #!/bin/sh
-echo "ls -a"
+echo "(test -e ./test/Zhenyu_625503.txt && echo B) || (echo C && echo D)"
 echo "exit"
 ./rshell << EOF
-ls -a
+(test -e ./test/Zhenyu_625503.txt && echo B) || (echo C && echo D)
 exit
 EOF
