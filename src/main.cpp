@@ -30,7 +30,6 @@ bool compareStrandChar(char * c, string str)
     
 }
 
-
 bool contain(char * c, string t)
 {
     string s = c;
@@ -281,10 +280,8 @@ public:
         char * arg[20];
         int num1 = 0;
         int num = 0;
-        
         for (int i = 0;i<=count-1;i++)
         {
-            //if(compareStrandChar(command[i], " && ")||compareStrandChar(command[i], " || ")||compareStrandChar(command[i], "; "))
             if(contain(command[i], "&&")||contain(command[i], "||")||contain(command[i], ";"))
             {
                 con[num1] = command[i];
@@ -317,7 +314,7 @@ public:
             cmds.parse();
             flag = cmds.exec();
         }
-        
+//    }
     }
 };
 
@@ -344,6 +341,7 @@ public:
         p = strtok(content, comment_connector);
         PrecedenceCommands pcd(p);
         return pcd;
+        
     }
 };
 
@@ -356,10 +354,27 @@ int main(int argc, const char * argv[]) {
         getline(cin,c);
         if(c == "exit")
             break;
+        int count1 = 0;
+        int count2 = 0;
+        string str = c;
+        for(int c = 0;c<str.size();c++)
+        {
+            if (str[c] == '(' )
+                count1++;
+            if (str[c] == ')')
+                count2++;
+        }
+        if (count1!=count2) {
+            cout<<"No match ( and )"<<endl;
+            continue;
+        }
+        else
+        {
         Command_lines cl(c);
         PrecedenceCommands pcs = cl.parseCommands();
         pcs.parse();
         pcs.exec();
+        }
     }
     
 }
