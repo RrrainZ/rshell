@@ -10,3 +10,4 @@ rshell:
 
 clean:
 	rm -rf bin/
+	rm -rf tests/rshell
