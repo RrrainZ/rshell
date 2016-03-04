@@ -58,7 +58,7 @@ Limits:
 
 When any blank space places between '()' and '#', there will be a crush.
 When any blank space places at first space, there will be a crush.
-When command have multi '()' like (...(...)), there will be a crush.
+When command have nested '()' like (...(...)), there will be a crush.
 
 Contributors:
 
