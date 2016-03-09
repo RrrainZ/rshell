@@ -6,11 +6,13 @@
 //  Copyright © 2016年 HuZhenyu. All rights reserved.
 //
 
+#include <stdio.h>
 #include <iostream>
 #include <string>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <stdlib.h>
 
 using namespace std;
 
