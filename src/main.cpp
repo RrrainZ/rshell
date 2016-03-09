@@ -5,9 +5,9 @@
 //  Created by HuZhenyu on 16/2/1.
 //  Copyright © 2016年 HuZhenyu. All rights reserved.
 //
-
+#include <stdio.h>
 #include <iostream>
-#include <string>
+#include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -15,6 +15,7 @@
 #include <sys/stat.h>
 #include <time.h>
 #include <vector>
+#include <stdlib.h> 
 
 using namespace std;
 
@@ -357,11 +358,11 @@ int main(int argc, const char * argv[]) {
         int count1 = 0;
         int count2 = 0;
         string str = c;
-        for(int c = 0;c<str.size();c++)
+        for(int i = 0;i<(int)str.size();i++)
         {
-            if (str[c] == '(' )
+            if (str[i] == '(' )
                 count1++;
-            if (str[c] == ')')
+            if (str[i] == ')')
                 count2++;
         }
         if (count1!=count2) {
